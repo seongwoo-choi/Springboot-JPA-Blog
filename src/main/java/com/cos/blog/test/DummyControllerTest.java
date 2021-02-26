@@ -1,7 +1,11 @@
 package com.cos.blog.test;
 
 
+import java.util.function.Supplier;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,12 +14,51 @@ import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 
-@RestController //데이터만응답해주게 해준다.
+@RestController // html이 아니라 데이터만 응답해주게 해준다. 
 public class DummyControllerTest {
 	
 	//의존성 주입!!
 	@Autowired //Autowired 어노테이션을 사용하면 DummyControllerTest가 메모리에 뜰 때 UserRepository 얘도 같이 메모리에 뜨게 된다.
 	private  UserRepository UserRepository;
+	
+	//{id}주소로 파라미터를 전달 받을 수 있음.
+	//http://localhost:8000/blog/dummy/user/3
+	@GetMapping("/dummy/user/{id}")
+	public User detail(@PathVariable int id) {
+		// user/4 을 찾으면 내가 데이터베이스에서 못찾아오게 되면 user가 null 이 될 것이다.
+		// 그럼 return null 이 리턴이 되자나.. 그럼 프로그램에 문제가 있지 않겠니?
+		// Optional로 너의 User 객체를 감싸서 가져올테니 null인지 아닌지 판단해서 return
+		// .get()이오면 null 절대 올리가 없다라는 뜻
+		// select한 값이 null이 리턴되는 경우에 아래와 같이 쓰면 된다.
+		User user = UserRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+			@Override
+			public IllegalArgumentException get() {
+				return new IllegalArgumentException("해당 유저는 없습니다. id : " + id);
+			}
+		});
+		
+//		//람다식
+//		User user = UserRepository.findById(id).orElseThrow(()->{
+//			return IllegalArgumentException("해당 유저는 없습니다.");
+//		});
+
+//		// null이 리턴되는 녀석들의 경우에도 똑같이 null로 표시해서 나타나게 해준다.
+//		User user = UserRepository.findById(id).orElseGet(new Supplier<User>() {
+//			@Override
+//			public User get() {
+//				return new User();
+//			}
+//		});
+	
+		// 요청 : 웹브라우저에서 함
+		// user 객체 = 자바 오브젝트 
+		// @RestController 라서 데이터 타입만 이해함
+		// 그래서 JSON 타입으로 변환해서 던져줘야 한다.
+		// 스프링부트는 MessageConverter라는 친구가 응답시에 자동 작동
+		// 만약에 자바 오브젝트를 리턴하게 되면 MessageConverter가 Jackson이라는 라이브러리를 호출
+		// user 오브젝트를 json으로 변환해서 브라우저에게 던져줍니다.
+		return user;
+	}
 
 	//http://localhost:8000/blog/dummy/join (요청)
 	//http의 body에 username, password, email 데이터를 가지고 요청하게 되면
