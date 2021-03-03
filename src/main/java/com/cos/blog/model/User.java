@@ -32,7 +32,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int id; // Oracle인 경우 시퀀스, MySQL인 경우 auto_increment
 	
-	@Column(nullable = false, length = 30) // 널 값이 올 수 없고 최대 길이가 30!
+	@Column(nullable = false, length = 30, unique = true) // 널 값이 올 수 없고 최대 길이가 30!
 	private String username; // 아이디
 	
 	@Column(nullable = false, length = 100) // PW	가 123456 6자리 일 경 -> 해쉬로 변경해서 비밀번호를 암호할 것 이기 떄문에 글자수 100을 주었다.
