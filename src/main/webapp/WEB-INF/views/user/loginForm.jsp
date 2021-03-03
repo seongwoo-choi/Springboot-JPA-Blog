@@ -31,14 +31,14 @@
 <body>
 
 	<div class="container">
-		<h2>Stacked form</h2>
-		<form action="/action_page.php">
+		<form>
+			<!-- 데이터를 insert 하기 때문에 POST 방식이다. -->
 			<div class="form-group">
-			
+
 				<div class="form-group">
 					<label for="Username">Username:</label> <input type="username" class="form-control" id="text" placeholder="Enter username" name="username">
 				</div>
-			
+
 				<div class="form-group">
 					<label for="password">Password:</label> <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
 				</div>

@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!--  내가 있는 위치에서 한 칸 위로 올라가서 상대 경로로 찾는다. -->
 <%@ include file="../layout/header.jsp"%>
-
 <div class="container">
 	<!DOCTYPE html>
 	<html lang="en">
@@ -31,24 +28,26 @@
 <body>
 
 	<div class="container">
-		<h2>Stacked form</h2>
-		<form action="/action_page.php">
-			<div class="form-group">
-			
+		<form>
+
 				<div class="form-group">
-					<label for="Username">Username:</label> <input type="username" class="form-control" id="text" placeholder="Enter username" name="username">
+					<label for="username">Username:</label> <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
 				</div>
 				
-				<div class="form-group">
-					<label for="email">Email:</label> <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-				</div>
-
 				<div class="form-group">
 					<label for="password">Password:</label> <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
 				</div>
 
-				<button type="submit" class="btn btn-primary">회원 가입 완료</button>
-			</div>
+				<div class="form-group">
+					<label for="email">Email:</label> <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+				</div>
+
+				
 		</form>
+		
+		<button id="btn-save" class="btn btn-primary">회원 가입</button>
 	</div>
+	
+	
+	<script src="/blog/js/user.js"></script>
 	<%@ include file="../layout/footer.jsp"%>
