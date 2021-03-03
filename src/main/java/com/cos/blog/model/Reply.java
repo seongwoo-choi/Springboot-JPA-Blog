@@ -21,13 +21,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity // Reply 객체와 Table을 맵핑해주는 어노테이
 public class Reply {
 	
+	// JPA가 객체를 관리할 때 식별할 기본키를 지정한다.
 	@Id //Primary Key 가 된다는 것을 알려주는 어노테이션
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int id; // Oracle인 경우 시퀀스, MySQL인 경우 auto_increment
 
+	// 필드와 컬럼을 맵핑해주는 어노테이션 
 	@Column(nullable=false, length=200)
 	private String content;
 	
