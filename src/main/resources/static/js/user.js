@@ -4,6 +4,10 @@ let index = {
 		$("#btn-save").on("click", () => { // function() {}, ()=>{} this를 바인딩하기 위해서 사용했다.
 			this.save();
 		});
+		// 누군가가 btn-login을 클릭하면 login()을 시작해라
+		$("#btn-login").on("click", () => { // function() {}, ()=>{} this를 바인딩하기 위해서 사용했다.
+			this.login();
+		});
 	},
 
 	save: function() {
@@ -31,11 +35,39 @@ let index = {
 		}).done(function(resp) { // dataType 덕분에 json 문자열 타입의 데이터가 자바스크립트 오브젝트로 변경되어서 resp라는 파라미터에 저장되어서 이 함수로 넘어온다.
 			// 성공하면 여기 함수를 실행 
 			alert("회원가입이 완료되었습니다.");
-			console.log(resp);
 			// alert(resp); // 즉, UserApiController @PostMapping을 처리하는 함수의 리턴값이 넘어오는 것이다.
 			location.href = "/blog";
 		}).fail(function(error) {
-			// 실패하면 여기 함수를 실행 
+			// 실패하면 여기 함수를 실행을 한다.
+			alert(JSON.stringify(error));
+		}); 
+
+	},
+	
+	login: function() {
+		//alert('user의 save함수 호출');
+		let data = {
+			// username id 값을 찾는다. 찾은 값을 각각의 변수에 바인딩한다.
+			// 어디서 찾느냐??? btn-save 가 동작할 때 입력받은 녀석들의 id 가 username, password, email 인 녀석들의 값이다.
+			username: $("#username").val(),
+			password: $("#password").val()
+		};
+
+	
+		// GET 방식으로 하면 주소창에 값이 나오기 때문에 POST 방식
+		$.ajax({
+			// 회원가입 수행 요청 (100초가 걸린다고 가정해도 아래 코드가 실행이 된다.)
+			type:"POST", // 메서드가 POST면 INSERT 이다.
+			url:"/blog/api/user/login",
+			data:JSON.stringify(data), // 자바스크립트 오브젝트를 json 문자열 타입으로 변경해준다.
+			contentType:"application/json; charset=utf-8", // http body 데이터가 어떤 타입인지(MIME)
+			dataType:"json" // 서버로 요청을 해서 응답이 왔을 때 모든 것이 버퍼로 오기 때문에 문자열 상태이고 생긴 것이 json이라면 => javascript 오브젝트로 변경해준다.
+		}).done(function(resp) { // dataType 덕분에 json 문자열 타입의 데이터가 자바스크립트 오브젝트로 변경되어서 resp라는 파라미터에 저장되어서 이 함수로 넘어온다.
+			// 성공하면 여기 함수를 실행 
+			alert("로그인이 완료되었습니다.");
+			location.href = "/blog";
+		}).fail(function(error) {
+			// 실패하면 여기 함수를 실행을 한다.
 			alert(JSON.stringify(error));
 		}); 
 
