@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +30,7 @@ public class UserApiController {
 		// HTTP 요청의 body 내용을 자바 객체로 맵핑하는 역할을 하는 @RequestBody 어노테이션
 		// 그래서 User타입의 user는 username, password, email을 들고 있다.
 		System.out.println("UserApiController : save 호출됨");
-		
 		// 실제로 DB에 insert를 하고 아래에서 return을 한다.
-		user.setRole(RoleType.USER);
 		// 회원가입이 오류가 나면 GlobalExceptionHandler로 넘어가게 된다.
 		userService.회원가입(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // Http 통신 상태가 OK이면 status에 200이 찍히고 데이터에는 1이 찍힌다. 실패하면 0이 찍힌다.
