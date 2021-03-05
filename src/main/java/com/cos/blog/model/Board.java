@@ -39,14 +39,14 @@ public class Board {
 	private String content; //섬머노트 라이브러리 <html>태그가 섞여서 디자인이 됨.
 	
 	@ColumnDefault("0")
-	private int count; //조회수
+	private int count; //조회수 
 	
 	//Board를 셀렉트 할 때 userid 를 가져와라는 기본전략.
 	//EAGER --> 모든 정보를 다 가져올 때 쓰는 전략, LAZY --> 페이지에서 데이터들이 다 나타나지 않을 때 쓰는 전략
 	@ManyToOne(fetch = FetchType.EAGER)//Many = Board, User = One --> 한명의 유저에 의해 여러개의 게시물이 써질 수 있다.
 	@JoinColumn(name="userId") //FK를 설정해 준다.
 	private User user; //DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다.
-	
+
 	//JoinColumn을 해주지 않아도 된다. why? 원자성을 위배하기 때문이다.
 	//하나의 게시물은 여러개의 답글을 가질  수 있다.
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //mappedBy 연관관계의 주인이 아니다.(난 FK가 아니에요.) DB에 칼럼을 만들지 마세요.  

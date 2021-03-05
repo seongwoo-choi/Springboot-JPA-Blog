@@ -24,10 +24,7 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private HttpSession session;
-	
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) { 
 		// HTTP 요청의 body 내용을 자바 객체로 맵핑하는 역할을 하는 @RequestBody 어노테이션
 		// 그래서 User타입의 user는 username, password, email을 들고 있다.
@@ -41,17 +38,22 @@ public class UserApiController {
 																									// 자바오브젝트를 JSON으로 변환해서 리턴한다.
 	}
 	
-	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user){
-		
-		System.out.println("UserApiController : login 호출됨");
-		User principal = userService.로그인(user);  // principal 접근 주체라는 용어 
-		
-		System.out.println("외부 :" + principal);
-		
-		if(principal != null) {
-			session.setAttribute("principal",  principal);
-		}
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-	}
+	
+	// 전통적인 방식의 로그인 시큐리티 사용 X
+//	@PostMapping("/api/user/login")
+//	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
+//		
+//		System.out.println("UserApiController : login 호출됨");
+//		User principal = userService.Login(user);  // principal 접근 주체라는 용어 
+//		
+//		if(principal != null) {
+//			session.setAttribute("principal",  principal);
+//		}
+//	
+//		System.out.println(new ResponseDto<Integer>(HttpStatus.OK.value(), 1));
+//		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+//	}
+	
+	// Security를 이용해서 로그인한다. 
+	
 }
