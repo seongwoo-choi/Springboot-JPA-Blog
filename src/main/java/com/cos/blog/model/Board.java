@@ -19,9 +19,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //ORM -> Java(다른언어 포함) Object -> 테이블로 맵핑해주는 기술!!! 변수명을 바꾸고 저장하면 DB도 바로 수정이 된다!!!
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder //빌더 패턴!!
@@ -38,7 +40,6 @@ public class Board {
 	@Lob //대용량 데이터 
 	private String content; //섬머노트 라이브러리 <html>태그가 섞여서 디자인이 됨.
 	
-	@ColumnDefault("0")
 	private int count; //조회수 
 	
 	//Board를 셀렉트 할 때 userid 를 가져와라는 기본전략.
