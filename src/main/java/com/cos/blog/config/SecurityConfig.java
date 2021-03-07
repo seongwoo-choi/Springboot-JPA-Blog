@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.csrf().disable() // csrf 토큰 비활성화 (테스트시 걸어두는 게 좋다), ajax 통신 시에 토큰이 없기 때문에 통신을 막아버리기 때문이다.
 			.authorizeRequests() // request 가 들어올 때
-				.antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**") // /, auth, js, css, image 이하의 모든 경로가 오면
+				.antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**", "/dummy/**") // /, auth, js, css, image 이하의 모든 경로가 오면
 				.permitAll() // 누구나 들어올 수 있다.
 				.anyRequest() // /, auth, js, css, image 이하의 모든 경로를 제외한 요청은  
 				.authenticated() // 인증이 되어야 한다. /, auth, js, css, image를 갈 때 빼고는 모두 인증이 필요로 하다.

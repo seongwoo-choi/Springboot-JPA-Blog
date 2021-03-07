@@ -1,6 +1,9 @@
 package com.cos.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +25,11 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping({"", "/"})
-	public String index(Model model) {
+	public String index(Model model, @PageableDefault(size = 2, sort ="id", direction = Sort.Direction.DESC) Pageable pageable) {
 		// main 페이지로 갈 때 데이터를 가져가야 함
 		// 데이터를 뷰로 가져가기 위해서 Model을 사용한다.
 		
-		model.addAttribute("boards", boardService.글목록());
+		model.addAttribute("boards", boardService.글목록(pageable));
 		// model의 이름이 boards 라는 이름으로 boardService.글목록()이 담겨져서 index.jsp로 데이터가 넘겨진다.
 		// jstl 태그라이브러리를 이용해서 ${boards}를 하면 데이터를 받을 수 있다.
 		
