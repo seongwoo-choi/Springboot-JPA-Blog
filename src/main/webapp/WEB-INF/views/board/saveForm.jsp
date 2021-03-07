@@ -8,15 +8,12 @@
 <div class="container">
 
 	<form>
-		<!-- 로그인 한다는 것은 select 한다는 것!!! -->
 
 		<div class="form-group">
-			<label for="title">Title</label> 
 			<input type="username" class="form-control" id="title" placeholder="Enter title">
 		</div>
 
 		<div class="form-group">
-			<label for="content">Content</label>
 			<textarea class="form-control summernote" rows="5" id="content"></textarea>
 		</div>
 	</form>

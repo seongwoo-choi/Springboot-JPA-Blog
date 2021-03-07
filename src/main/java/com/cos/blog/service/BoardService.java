@@ -51,6 +51,17 @@ public class BoardService {
 		boardRepository.deleteById(id);
 	}
 	
+	@Transactional
+	public void 글수정하기(int id, Board requestBoard) {
+		Board board = boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
+				}); // 영속화 완료
+		board.setTitle(requestBoard.getTitle());
+		board.setContent(requestBoard.getContent());
+		// 해당 함수 종료시(Service가 종료될 때) 트랜잭션이 종료됩니다. 이 때 더티체킹이 일어나면서 자동 업데이트(commit)가 된다 == DB로 flush가 된다.
+	}
+	
 	// boardService의 전체적인 흐름도
 	// BoardController에서 board/saveForm 요청을 하면 board/saveForm jsp 파일이 열린다.
 	// board/saveForm에서 타이틀이랑 컨텐트를 입력을 하고 제출 버튼을 누르면 
