@@ -29,15 +29,26 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 	
+	// select만 하는 작업이기 때문에 트랜잭션 어노테이션을 안써도 되지만
+	// 쓰는 편이 좋기 때문에 select만 하는 작업이라는 것을 알려주기 위해 readOnly = true를 붙여주었다.
+	@Transactional(readOnly = true)
 	public Page<Board> 글목록(Pageable pageable){
 		return boardRepository.findAll(pageable);
 	}
 	
+	// select만 하는 작업이기 때문에 트랜잭션 어노테이션을 안써도 되지만
+	// 쓰는 편이 좋기 때문에 select만 하는 작업이라는 것을 알려주기 위해 readOnly = true를 붙여주었다.
+	@Transactional(readOnly = true)
 	public Board 글상세보기(int id) {
 		return boardRepository.findById(id)
 				.orElseThrow(()->{
 					return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
 				});
+	}
+	
+	@Transactional
+	public void 글삭제하기(int id) {
+		boardRepository.deleteById(id);
 	}
 	
 	// boardService의 전체적인 흐름도
