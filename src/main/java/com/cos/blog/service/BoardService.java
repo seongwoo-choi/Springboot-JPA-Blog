@@ -24,15 +24,20 @@ public class BoardService {
 	// 글쓰기 할 때 유저 정보가 필요하다.
 	@Transactional
 	public void 글쓰기(Board board, User user) {
-		board.setCount(0);
-		board.setUser(user);
+		board.setCount(0); // 게시글 조회수 0으로 설정
+		board.setUser(user);  // 게시글 올린 유저명
 		boardRepository.save(board);
 	}
 	
-	
-	
 	public Page<Board> 글목록(Pageable pageable){
 		return boardRepository.findAll(pageable);
+	}
+	
+	public Board 글상세보기(int id) {
+		return boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
+				});
 	}
 	
 	// boardService의 전체적인 흐름도
