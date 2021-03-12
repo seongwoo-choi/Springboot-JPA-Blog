@@ -26,8 +26,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/updateForm")
+<<<<<<< HEAD
 	// principal은 AuthenticationPrincipal 객체를 가져온다.
 	public String updateForm(@AuthenticationPrincipal PrincipalDetail principal) {
+=======
+	public String updateForm() {
+>>>>>>> be8386b914d7722fa601a3c71114ad5334248cb2
 		return "user/updateForm";
 	}
 	
