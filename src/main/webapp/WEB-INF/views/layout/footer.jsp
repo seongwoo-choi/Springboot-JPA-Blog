@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<br />
 <div class="jumbotron text-center" style="margin-bottom: 0">
-	<p>Created by SeongWoo</p>
-	<p>📞010-6530-9868</p>
-	<p>🍎경기도 고양시 덕양구</p>
+	<p>Created by Cos</p>
+	<p>📞 010-2222-7777</p>
+	<p>🏴 부산 수영구 XX동</p>
 </div>
 </body>
 </html>

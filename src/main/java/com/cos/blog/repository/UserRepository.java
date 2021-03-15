@@ -4,13 +4,13 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.cos.blog.model.User;
 
-
-//DAO
-//자동으로 bean등록이 된다.
-//@Repository를 생략할 수 있다.
+// DAO
+// 자동으로 bean등록이 된다.
+// @Repository // 생략 가능하다.
 public interface UserRepository extends JpaRepository<User, Integer>{
 	//extends JpaRepository<User, Integer> 이게 뭐지??
 	//해당 JpaRepository는 User 테이블이 관리하는 Repository이고 이 User 테이블의 Primary Key 는 Integer(숫자)이다.
@@ -18,8 +18,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	// SELECT * FROM user WHERE username = 1?;
 	Optional<User> findByUsername(String username);
-
 }
+
 
 	//로그인을 위한 함수를 만들어보자 1
 	// JPA Naming 쿼리 전략이 있다.

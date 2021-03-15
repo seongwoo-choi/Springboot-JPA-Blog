@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 
-@Service // 빈 등록
+@Service // Bean 등록
 public class PrincipalDetailService implements UserDetailsService{
 	
 	@Autowired
@@ -23,12 +23,9 @@ public class PrincipalDetailService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User principal = userRepository.findByUsername(username)
 				.orElseThrow(()->{
-					return new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다 : " + username);
+					return new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : "+username);
 				});
-		
 		// UserDetails 타입이다.
 		return new PrincipalDetail(principal); // 시큐리티의 세션에 유저 정보가 저장이 됨.
 	}
-	
-
 }
