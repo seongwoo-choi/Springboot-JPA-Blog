@@ -11,10 +11,18 @@ import com.cos.blog.model.User;
 import lombok.Data;
 import lombok.Getter;
 
+<<<<<<< HEAD
 //  스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료가 되면 UserDetails 타입의 오브젝트를
 // 스프링 시큐리티의 고유한 세션저장소에 저장을 해준다.
 @Data // User 객체를 가져오기 위해서 사용. 
 public class PrincipalDetail implements UserDetails{
+=======
+// 스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료가 되면 UserDetails 타입의 오브젝트를
+// 스프링 시큐리티의 고유한 세션저장소에 저장을 한다.
+@Data // User 객체를 가져오기 위해서 사용. 
+public class PrincipalDetail implements UserDetails { // 스프링 시큐리티의 세션에 UserDetails 타입의 pricipalDetail이 저장된다.
+
+>>>>>>> 52d752a39d59d916720cc07b6d15e5bf1b2b517f
 	private User user; // 객체를 품고있음(콤포지션)
 
 	public PrincipalDetail(User user) {

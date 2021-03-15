@@ -1,9 +1,12 @@
 package com.cos.blog.controller;
 
+<<<<<<< HEAD
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+=======
+>>>>>>> 52d752a39d59d916720cc07b6d15e5bf1b2b517f
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -13,6 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 52d752a39d59d916720cc07b6d15e5bf1b2b517f
 
 //인증이 안된 사용자들이 출입할 수 있는 경로를 /auth/* 이하 경로만 허용
 //그냥 주소가 / 이면 index.jsp 허용
@@ -74,6 +81,16 @@ public class UserController {
 	@GetMapping("/user/updateForm")
 	public String updateForm() {	
 	  return "user/updateForm";
+	}
+	
+	@GetMapping("/user/updateForm")
+<<<<<<< HEAD
+	// principal은 AuthenticationPrincipal 객체를 가져온다.
+	public String updateForm(@AuthenticationPrincipal PrincipalDetail principal) {
+=======
+	public String updateForm() {
+>>>>>>> be8386b914d7722fa601a3c71114ad5334248cb2
+		return "user/updateForm";
 	}
 	
 }
