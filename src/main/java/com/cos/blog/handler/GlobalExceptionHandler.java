@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cos.blog.dto.ResponseDto;
 
 @ControllerAdvice // 모든 Exception을 여기서 처리한다.
-@RestController
+@RestController // Data 를 반환한다.
 public class GlobalExceptionHandler {
 	// 모든 Exception 예외처리만 다룬다.
 	@ExceptionHandler(value=Exception.class)

@@ -23,7 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private PrincipalDetailService principalDetailService;
-<<<<<<< HEAD
 		
 	@Bean
 	@Override
@@ -32,17 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 
 	@Bean // IoC가 되요!!
-=======
-
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		
-		return super.authenticationManagerBean();
-	}
-
-	@Bean // IoC 가 된다. 뭐가?? 
->>>>>>> 52d752a39d59d916720cc07b6d15e5bf1b2b517f
 	public BCryptPasswordEncoder encodePWD() {
 		// return new BCryptPasswordEncoder(); 이 값이 bean으로 등록된다.
 		return new BCryptPasswordEncoder();

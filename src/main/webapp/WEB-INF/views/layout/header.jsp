@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <sec:authorize access="isAuthenticated()">
-<<<<<<< HEAD
 	<sec:authentication property="principal" var="principal"/>
-=======
-	<sec:authentication property="principal" var="principal" />
->>>>>>> 52d752a39d59d916720cc07b6d15e5bf1b2b517f
 </sec:authorize>
 
 <!DOCTYPE html>
@@ -25,10 +21,6 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-
->>>>>>> 52d752a39d59d916720cc07b6d15e5bf1b2b517f
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 		<a class="navbar-brand" href="/">Cos</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
