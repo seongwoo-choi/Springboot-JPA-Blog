@@ -1,5 +1,7 @@
 package com.cos.blog.service;
 
+import com.cos.blog.model.Reply;
+import com.cos.blog.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,9 @@ import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 @Service
 public class BoardService {
+
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	@Autowired
 	private BoardRepository boardRepository;
@@ -57,6 +62,20 @@ public class BoardService {
 		board.setContent(requestBoard.getContent());
 		// 해당 함수로 종료시(Service가 종료될 때) 트랜잭션이 종료됩니다. 이때 더티체킹 - 자동 업데이트가 됨. db flush
 	}
+
+	@Transactional
+	public void 댓글쓰기(User user, int boardId, Reply requestReply){
+
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 아이디를 찾을 수 없습니다.");
+		});
+
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+
+		replyRepository.save(requestReply);
+	}
+
 	
 	// boardService의 전체적인 흐름도
 	// BoardController에서 board/saveForm 요청을 하면 board/saveForm jsp 파일이 열린다.
