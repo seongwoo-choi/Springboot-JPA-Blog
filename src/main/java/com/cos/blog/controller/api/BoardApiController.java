@@ -1,5 +1,6 @@
 package com.cos.blog.controller.api;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
@@ -48,14 +49,24 @@ public class BoardApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 
-	@PostMapping("/api/board/{boardId}/reply")
-	public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
-		// @AuthenticationPrincipal PrincipalDetail principal => 컨트롤러에서 세션에 접근할 때 쓰는 방식이다.
+	// 데이터를 받을 때 컨트롤러에서 dto를 만들어서 받는 게 좋다.
+	// dto 사용하지 않는 이유는!!! 작은 프로젝트이기 때문이다..
+	// 프로젝트가 커지면 왔다 갔다 하는 데이터 필드가 굉장히 커진다.
+	// 그래서 dto를 사용해야 한다. 객체를 왔다 갔다 움직이는 것은 좋은 방법이 아니다.
+//	@PostMapping("/api/board/{boardId}/reply")
+//	public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+//		// @AuthenticationPrincipal PrincipalDetail principal => 컨트롤러에서 세션에 접근할 때 쓰는 방식이다.
+//		boardService.댓글쓰기(principal.getUser(), boardId, reply); // user 오브젝트가 필요함.
+//		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+//	}
 
-		boardService.댓글쓰기(principal.getUser(), boardId, reply); // user 오브젝트가 필요함.
+	// dto를 사용하면 한 번에 여러개의 데이터를 전송할 수 있다.
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+		// @AuthenticationPrincipal PrincipalDetail principal => 컨트롤러에서 세션에 접근할 때 쓰는 방식이다.
+		boardService.댓글쓰기(replySaveRequestDto); // user 오브젝트가 필요함.
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-
 
 	
 }

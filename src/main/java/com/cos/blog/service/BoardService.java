@@ -1,7 +1,9 @@
 package com.cos.blog.service;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Reply;
 import com.cos.blog.repository.ReplyRepository;
+import com.cos.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,9 @@ import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 @Service
 public class BoardService {
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private ReplyRepository replyRepository;
@@ -63,17 +68,29 @@ public class BoardService {
 		// 해당 함수로 종료시(Service가 종료될 때) 트랜잭션이 종료됩니다. 이때 더티체킹 - 자동 업데이트가 됨. db flush
 	}
 
+
+	// dto 를 쓰면 좋은 점
+	// 내가 필요한 데이터를 한 번에 받을 수 있고
+	// 영속화를 시킬 수 있다.
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply){
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto){
 
-		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패 : 유저 아이디를 찾을 수 없습니다.");
+		}); // 영속화 완료;
+
+		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
 			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 아이디를 찾을 수 없습니다.");
-		});
+		}); // 영속화 완료;
 
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
+		Reply reply = Reply.builder()
+				.user(user)
+				.board(board)
+				.content(replySaveRequestDto.getContent())
+				.build();
 
-		replyRepository.save(requestReply);
+
+		replyRepository.save(reply);
 	}
 
 	

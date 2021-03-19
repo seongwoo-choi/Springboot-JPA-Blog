@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -43,6 +44,7 @@ public class Reply {
 	
 	@CreationTimestamp
 	private LocalDateTime createDate;
+
 }
 
 
