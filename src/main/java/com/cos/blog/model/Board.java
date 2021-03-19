@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -50,9 +51,11 @@ public class Board {
 	//JoinColumn을 해주지 않아도 된다. why? 원자성을 위배하기 때문이다.
 	//하나의 게시물은 여러개의 답글을 가질  수 있다.
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아니다 (난 FK가 아니에요) DB에 칼럼을 만들지 마세요.
-	private List<Reply> reply; //즉 FK는 Reply테이블의 boardId가 FK라는 것을 나타낸다.
+	@JsonIgnoreProperties({"board"}) // 무한 참조 방지하기 위한 방법
+	private List<Reply> replys; //즉 FK는 Reply테이블의 boardId가 FK라는 것을 나타낸다.
 	//나는 그냥 Board를 셀렉트할 때 Join문을 통해서 값을 얻기 위해 필요한 거에요.
-	
+	// 보드를 findById를 하면 연관관계의 주인이 아니고 FK가 아니다.
+
 	@CreationTimestamp // 시간이 자동으로 입력되게 하는 어노테이션
 	private LocalDateTime createDate;
 }
