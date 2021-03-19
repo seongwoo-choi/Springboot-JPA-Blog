@@ -33,14 +33,14 @@ public class Reply {
 	// 필드와 컬럼을 맵핑해주는 어노테이션 
 	@Column(nullable = false, length = 200)
 	private String content;
+
+	@ManyToOne //여러개의 답변을 한명의 유저가 적을 수 있다.
+	@JoinColumn(name="userId")
+	private User user;
 	
 	@ManyToOne //연관관계 설정 : 여러개의 답변은 하나의 게시글에 존재할 수 있다.
 	@JoinColumn(name="boardId") //DB테이블 칼럼에 boardId라는 녀석이 생성되도록 하는 어노테이션 
 	private Board board;
-	
-	@ManyToOne //여러개의 답변을 한명의 유저가 적을 수 있다.
-	@JoinColumn(name="userId")
-	private User user;
 	
 	@CreationTimestamp
 	private LocalDateTime createDate;
