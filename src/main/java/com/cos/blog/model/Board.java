@@ -41,7 +41,8 @@ public class Board {
 	
 	//JoinColumn을 해주지 않아도 된다. why? 원자성을 위배하기 때문이다.
 	//하나의 게시물은 여러개의 답글을 가질  수 있다.
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아니다 (난 FK가 아니에요) DB에 칼럼을 만들지 마세요.
+	// cascade=CascadeType.REMOVE board 게시글을 지울 때 reply도 모두 지우겠다.
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE) // mappedBy 연관관계의 주인이 아니다 (난 FK가 아니에요) DB에 칼럼을 만들지 마세요.
 	@JsonIgnoreProperties({"board"}) // 무한 참조 방지하기 위한 방법
 	@OrderBy("id desc")
 	private List<Reply> replys; //즉 FK는 Reply테이블의 boardId가 FK라는 것을 나타낸다.
