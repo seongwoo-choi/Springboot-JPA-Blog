@@ -1,1 +1,1 @@
-# Springboot-JPA-Blog
+# Springboot-BLOG wit JPA
